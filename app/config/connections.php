@@ -2,7 +2,7 @@
 
 class Connection
 {
-    public $host = 'localhost/8080:';
+    public $host = 'localhost';
     public $dbname = 'db_postgres';
     public $port = "5432";
     public $user = 'admin';
