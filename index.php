@@ -25,12 +25,12 @@
         <hr />
         <form action="javascript:void(0);" onsubmit="app.guardar()">
           <input type="hidden" id="id" />
-          <label for="nombres">Nombres</label>
+          <label for="nombre">Nombre</label>
           <input
             type="text"
             class="form-control"
-            id="nombres"
-            placeholder="Nombres Apellidos"
+            id="nombre"
+            placeholder="nombre apellido"
             autofocus
             required />
           <label for="email">Email</label>
@@ -62,7 +62,7 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Nombres</th>
+              <th>Nombre</th>
               <th>Email</th>
               <th>Edad</th>
               <th>Opciones</th>

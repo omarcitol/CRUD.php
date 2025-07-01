@@ -1,9 +1,8 @@
 <?php
-require_once "./app/config/connections.php";
+require_once __DIR__ . '/../config/connections.php';
 
 class Persona extends Connection
 {
-
     public static function mostrarDatos()
     {
         try {
@@ -13,27 +12,29 @@ class Persona extends Connection
             $result = $stmt->fetchAll();
             return $result;
         } catch (PDOException $th) {
-            echo $th->getMessage();
+            return ['error' => $th->getMessage()];
         }
     }
+
     public static function obtenerDatoId($id)
     {
         try {
-            $sql = "SELECT * FROM persona WHERE id * :id";
+            $sql = "SELECT * FROM persona WHERE id = :id";
             $stmt = Connection::getConnection()->prepare($sql);
             $stmt->bindParam(':id', $id);
+            $stmt->execute();
             $result = $stmt->fetch();
             return $result;
         } catch (PDOException $th) {
-            echo $th->getMessage();
+            return ['error' => $th->getMessage()];
         }
     }
 
     public static function guardarDato($data)
     {
-
         try {
-            $sql = "INSERT * FROM persona (:cedula, :nombre, :apellido, :email, :fecha_nacimiento, :profesion)";
+            $sql = "INSERT INTO persona (cedula, nombre, apellido, email, fecha_nacimiento, profesion)
+                    VALUES (:cedula, :nombre, :apellido, :email, :fecha_nacimiento, :profesion)";
             $stmt = Connection::getConnection()->prepare($sql);
             $stmt->bindParam(':cedula', $data['cedula']);
             $stmt->bindParam(':nombre', $data['nombre']);
@@ -44,14 +45,14 @@ class Persona extends Connection
             $stmt->execute();
             return true;
         } catch (PDOException $th) {
-            echo $th->getMessage();
+            return ['error' => $th->getMessage()];
         }
     }
+
     public static function actualizarDato($data)
     {
-
         try {
-            $sql = "UPDATE * FROM persona SET cedula = :cedula, nombre = :nombre, apellido = :apellido, email = :email, fecha_nacimiento = :fecha_nacimiento, profesion = :profesion WHERE id = id";
+            $sql = "UPDATE persona SET cedula = :cedula, nombre = :nombre, apellido = :apellido, email = :email, fecha_nacimiento = :fecha_nacimiento, profesion = :profesion WHERE id = :id";
             $stmt = Connection::getConnection()->prepare($sql);
             $stmt->bindParam(':cedula', $data['cedula']);
             $stmt->bindParam(':nombre', $data['nombre']);
@@ -59,23 +60,24 @@ class Persona extends Connection
             $stmt->bindParam(':email', $data['email']);
             $stmt->bindParam(':fecha_nacimiento', $data['fecha_nacimiento']);
             $stmt->bindParam(':profesion', $data['profesion']);
+            $stmt->bindParam(':id', $data['id']);
             $stmt->execute();
             return true;
         } catch (PDOException $th) {
-            echo $th->getMessage();
+            return ['error' => $th->getMessage()];
         }
     }
 
-    public static function EliminarDato($id)
+    public static function eliminarDato($id)
     {
         try {
-            $sql = "DELETE * FROM persona WHERE id";
+            $sql = "DELETE FROM persona WHERE id = :id";
             $stmt = Connection::getConnection()->prepare($sql);
-            $stmt->bindParam('id', $id);
+            $stmt->bindParam(':id', $id);
             $stmt->execute();
             return true;
         } catch (PDOException $th) {
-            echo $th->getMessage();
+            return ['error' => $th->getMessage()];
         }
     }
 }

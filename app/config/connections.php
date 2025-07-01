@@ -14,10 +14,10 @@ class Connection
         try {
             $dsn = "pgsql:host=localhost;port=5432;dbname=db_postgres";
             $connection = new PDO($dsn, 'admin', 'admin', [PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION]);
-            echo 'connection succesfully';
+            //echo 'connection succesfully';
             return $connection;
         } catch (PDOException $e) {
-            echo "Error de conexión a la base de datos: " . $e->getMessage();
+            // echo "Error de conexión a la base de datos: " . $e->getMessage();
             return null;
         }
     }

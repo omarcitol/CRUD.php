@@ -17,7 +17,8 @@
 
   <div class="container mt-4">
     <h2>Agregar Personas</h2>
-    <form action="/app/models/personas.php" method="post" class="mb-4">
+    <form action="javascript:void(0);" onsubmit="app.guardar()" class="mb-4">
+      <input type="hidden" id="id" />
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="cedula" class="form-label">Cedula</label>
